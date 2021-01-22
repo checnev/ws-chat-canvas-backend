@@ -1,9 +1,9 @@
 const User = require('./User');
 
 class UserService {
-  static create(body) {
-    const { username, color } = body;
-    const user = new User(username, color);
+  static create(data) {
+    const { name, color } = data;
+    const user = new User(name, color);
 
     return user;
   }

@@ -2,7 +2,7 @@ class Clients {
   #clients = new Map();
 
   get size() {
-    return this.#clietns.size;
+    return this.#clients.size;
   }
 
   add(connect, user) {
@@ -14,15 +14,23 @@ class Clients {
   }
 
   send(message) {
-    this.#clients.forEach((connect) => {
+    this.#clients.forEach((user, connect) => {
       connect.send(message);
     });
   }
 
-  notify(type, body) {
-    const message = JSON.stringify({ type, body });
+  notify(type, data) {
+    const message = JSON.stringify({ type, data });
 
     this.send(message);
+  }
+
+  getAll() {
+    return [...this.#clients.values()];
+  }
+
+  get(connect) {
+    return this.#clients.get(connect);
   }
 
 }

@@ -1,21 +1,11 @@
-const WebSocket = require('ws');
-const initRoutes = require('./routes');
+const http = require("http");
+const httpApp = require('./http/app');
+const wsApp = require('./ws/app');
 
-const wss = new WebSocket.Server({ port: process.env.PORT || 8080 });
-const router = initRoutes(wss);
+const server = http.createServer(httpApp);
+wsApp(server);
 
-const DISCONNECTION_MESSAGE = { type: 'signout' };
 
-wss.on('connection', (ws) => {
-  console.log('connection');
-
-  ws.on('message', (message) => {
-    router.requestHandler(message, ws);
-    console.log(`recieve message: ${message}`);
-  });
+server.listen(process.env.PORT || 8080, () => {
+  console.log('server started');
 });
-
-wss.on('disconnection', (ws) => {
-  router.requestHandler(JSON.stringify(DISCONNECTION_MESSAGE), ws);
-  console.log(`disconnection`);
-})
