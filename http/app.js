@@ -10,6 +10,7 @@ Object.keys(routes).forEach((route) => {
   app.use(route, routes[route]);
 });
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   console.log(err.message);
 });

@@ -7,6 +7,7 @@ class UserController {
 
     clients.add(connect, user);
     connect.send(
+      // eslint-disable-next-line comma-dangle
       JSON.stringify({ type: request.type, data: user })
     );
 

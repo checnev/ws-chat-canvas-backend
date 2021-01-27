@@ -1,20 +1,23 @@
+/* eslint-disable no-underscore-dangle */
 class Clients {
-  #clients = new Map();
+  constructor() {
+    this._clients = new Map();
+  }
 
   get size() {
-    return this.#clients.size;
+    return this._clients.size;
   }
 
   add(connect, user) {
-    this.#clients.set(connect, user);
+    this._clients.set(connect, user);
   }
 
   delete(connect) {
-    this.#clients.delete(connect);
+    this._clients.delete(connect);
   }
 
   send(message) {
-    this.#clients.forEach((user, connect) => {
+    this._clients.forEach((user, connect) => {
       connect.send(message);
     });
   }
@@ -26,13 +29,12 @@ class Clients {
   }
 
   getAll() {
-    return [...this.#clients.values()];
+    return [...this._clients.values()];
   }
 
   get(connect) {
-    return this.#clients.get(connect);
+    return this._clients.get(connect);
   }
-
 }
 
 const clients = new Clients();
